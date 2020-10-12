@@ -16,11 +16,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import HomeComponent from '../Components/HomeComponent'
+import FormAdding from '../Components/FormAdding'
 import Container from '@material-ui/core/Container';
-
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSearch,faPlus,faHome,faSignOutAlt,faUserAlt,faCommentDots,faKey } from '@fortawesome/free-solid-svg-icons'
+import {faSearch,faPlus,faHome,faSignOutAlt,faUserAlt,faCommentDots,faKey,faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
@@ -58,9 +58,7 @@ export const useStyles = theme => ({
     borderRadius:'30px 30px 0 0  ',
     position: 'fixed',
     width:'100%',
-    bottom:0
-    
-    
+    bottom:0,
   },
   upNavigation:{
     background:'#ffffff',
@@ -74,8 +72,6 @@ export const useStyles = theme => ({
 
   content: {
     height: '100vh',
-    
-    marginBottom:'250px'
   },
   
   fixedHeight: {
@@ -158,7 +154,7 @@ tab:{
     return (
       <div className={classes.root}>
       <CssBaseline />
-      <HashRouter>
+      
       {/* <BottomNavigation
         value={this.state}
         onChange={(event, newValue) => {
@@ -175,7 +171,8 @@ tab:{
             <Switch>
               {/* <Route exact path='/Projects' component={ProjectsSections} />  */}
               <Route exact path='/login' component={Login} /> 
-              <Route exact paht='/home' component={HomeComponent}/>
+              <Route exact path='/home' component={HomeComponent}/>
+              <Route exact path='/addForm' component={FormAdding}/>
               
               
             </Switch>
@@ -188,15 +185,16 @@ tab:{
         }}
         showLabels
         className={classes.bottomNavigation}
-      >
-        <BottomNavigationAction className={classes.toolbarIcon} icon={<FontAwesomeIcon icon={faKey} size="2x" />} />
-        <BottomNavigationAction className={classes.toolbarIcon} icon={<FontAwesomeIcon icon={faHome} size="2x" />} />
+        >
+         
+        <BottomNavigationAction component={Link} to="/addForm" className={classes.toolbarIcon} icon={<FontAwesomeIcon icon={faFileAlt} size="2x" />} />
+        <BottomNavigationAction component={Link} to="/home" className={classes.toolbarIcon} icon={<FontAwesomeIcon icon={faHome} size="2x" />} />
         <BottomNavigationAction className={classes.toolbarIcon} icon={<FontAwesomeIcon icon={faCommentDots} size="2x" />} />
       </BottomNavigation>
      
 
        
-      </HashRouter>
+      
           </div>
       );
   }

@@ -77,7 +77,7 @@ class Appartement(models.Model):
 
     
 class BuyingForm(models.Model):
-    client      = models.ForeignKey(Account,on_delete=models.CASCADE)
+    client      = models.ForeignKey(Account,on_delete=models.CASCADE,blank=True)
     fullname    = models.CharField(default='',max_length=50)
     birthday    = models.DateField()
     birthplace  = models.CharField(default='',max_length=255)
@@ -87,9 +87,9 @@ class BuyingForm(models.Model):
     identity    = models.ImageField(upload_to='identities',default='')
     appartement = models.ForeignKey(Appartement,on_delete=models.CASCADE)
     furniture   = models.CharField(default='Non Meuble',max_length=50)
-    description = models.TextField(default='write your description')
+    description = models.TextField(default='write your description',blank=True,null=True)
     floor       = models.IntegerField(default=1)
-    state       = models.CharField(default='non confirme',max_length=15)
+    state       = models.CharField(default='non confirme',max_length=15,blank=True)
     bank_receipt= models.FileField(upload_to='bank_receipts',blank=True)
     timestamp   = models.DateTimeField(auto_now_add=True,null=True )
 

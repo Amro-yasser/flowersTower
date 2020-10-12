@@ -3,6 +3,7 @@ import { makeStyles,withStyles,styled } from '@material-ui/core/styles';
 import {Paper,Button,Container,Grid} from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import GoogleMapReact from 'google-map-react';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     display:'block',
   },
   Carousel:{
-    marginTop:'200px',
+    marginTop:'30vh',
     
   },
   Description:{
@@ -125,7 +126,8 @@ const useStyles = makeStyles((theme) => ({
     zIndex:-1,
     borderRadius:'10px 10px',
     width:'400px',
-    height:'150px',
+    position:'relative',
+    // height:'150px',
     boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);',
 
 
@@ -155,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Example(props){
+export default function FormAdding(props){
   const classes = useStyles();
   const state = {
     isAuthenticated:localStorage.getItem('token')!== null
@@ -186,9 +188,6 @@ export default function Example(props){
     },
     {
       src:img4
-    },
-    {
-      src:img5
     },
     {
       src:img6
@@ -251,6 +250,12 @@ export default function Example(props){
       src:ext14
     },
   ]
+  const center ={
+  
+      lat: 59.95,
+      lng: 30.33
+    
+  }
   
  
     return (
@@ -260,15 +265,16 @@ export default function Example(props){
             
               <h1 className={classes.Description}>Hello world</h1>
             
-          <Grid item xs={12} align="center" className={classes.Carousel}>
           
-            
+          
+            <div className={classes.Carousel}>
               <OwlCarousel
                 className="owl-theme"
+                items={1}
                 loop ={false}
-                freeDrag={true}
-                margin={40}
-                nav
+                margin={10}
+                autoWidth={true}
+                dots={false}
                   >
                 { appartements.map((app)=>(
                   <div class="item">
@@ -290,22 +296,17 @@ export default function Example(props){
                 
               </OwlCarousel>
               
-          </Grid>
+          </div>
           <Grid item xs={12}>
             <Typography style={{margin:'10px 0'}} align="left" component="h4"><strong>Intérieur </strong>d'appartements</Typography>
               <OwlCarousel
                   className="owl-theme"
-                  loop 
-                  freeDrag={true}
+                  items={1}
+                  loop ={false}
                   margin={10}
-                  slideBy={10}
-                  autoplayHoverPause={true}
-                  mergeFit={false}
-                  dots={false}
-                  
                   autoWidth={true}
-                 
-                    >
+                  dots={false}
+                  >
                   { pictures.map((pic)=>(
                     <div style={{width:'200px'}} class="item">
                       <img className={classes.imgInt} src={pic.src}/> 
@@ -321,14 +322,9 @@ export default function Example(props){
             <Typography style={{margin:'10px 0'}} align="left" component="h4"><strong>Extérieur </strong>d'appartements</Typography>
               <OwlCarousel
                   className="owl-theme"
-                  loop 
-                  freeDrag={true}
                   margin={10}
-                  slideBy={10}
-                  autoplayHoverPause={true}
                   mergeFit={false}
                   dots={false}
-                  
                   autoWidth={true}
                  
                     >
@@ -343,7 +339,7 @@ export default function Example(props){
 
           </Grid>
           <Grid item xs={12}>
-          <Typography style={{margin:'10px 0'}} align="left" component="h4"><strong>Extérieur </strong>d'appartements</Typography>
+          <Typography style={{margin:'10px 0'}} align="left" component="h4"><strong>Reviews </strong></Typography>
           <List className={classes.root}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
@@ -411,6 +407,16 @@ export default function Example(props){
               />
             </ListItem>
           </List>
+          </Grid>
+          <Grid item xs={12} style={{ height: '100vh', width: '100%' }}>
+            
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: "AIzaSyA1E1MwIQWZoMT_3B5mRShw-lewu3SsP-8" }}
+              defaultCenter={center}
+              defaultZoom={11}
+              >
+              
+            </GoogleMapReact>
           </Grid>
         </Grid>
 

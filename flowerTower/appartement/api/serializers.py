@@ -36,8 +36,10 @@ class AppartementSerializer(serializers.ModelSerializer):
         # ['id','area','bathroom','balcony','loggia','init_price','quantity','plan','state']
 
 class BuyingFormSerializer(serializers.ModelSerializer):
+    description= serializers.CharField(required=False)
+    client = serialzers.
     bank_receipt = serializers.FileField(allow_empty_file=True,required=False)
-
+    state = serializers.CharField(required=False)
     class Meta:
         model= BuyingForm
-        fields =['id','client','fullname','birthday','birthplace','adress','email','phoneNumber','identity','appartement','furniture','description','floor','bank_receipt']
+        fields =['id','client','fullname','birthday','birthplace','adress','email','phoneNumber','identity','appartement','furniture','description','floor','bank_receipt','state']

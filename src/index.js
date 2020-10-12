@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducers/auth';
-
+import HomeComponent from './Components/HomeComponent'
 import {createStore, compose, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -31,10 +31,10 @@ const app= (
     {/* <HashRouter> */}
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Login}/>
     {/* <PersistGate loading={null} persistor={persistor}> */}
         <App>
-          
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/home' component={HomeComponent}/>
         </App>
     {/* </PersistGate> */}
       </Switch>    
