@@ -66,7 +66,8 @@ class DetailBuyingFormView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
                     mixins.DestroyModelMixin,
                     generics.GenericAPIView):
-
+                    
+  parser_classes=[FormParser,MultiPartParser]
   Lookup_field='pk'
   serializer_class=BuyingFormSerializer
   authentication_classes = [TokenAuthentication]
@@ -80,7 +81,8 @@ class DetailBuyingFormView(mixins.RetrieveModelMixin,
       return self.retrieve(request,*args,**kwags)
 
     def put(self,request,*args,**kwargs):
-      return self.update(request,*argsm,**kwargs)
+
+      return self.update(request,*args,**kwargs)
 
     def delete(self,request,*args,**kwargs):
       self.destroy(request,*args,**kwargs)
