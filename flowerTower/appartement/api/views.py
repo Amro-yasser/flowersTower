@@ -3,7 +3,9 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from rest_auth.registration.views import SocialLoginView
 from rest_auth.registration.serializers import SocialLoginSerializer
+from rest_framework.parsers import FormParser,MultiPartParser
 from rest_framework import generics,mixins
+from rest_framework.authentication import TokenAuthentication
 from .serializers import *
 
 
@@ -23,6 +25,7 @@ class AppartementView(mixins.CreateModelMixin,generics.GenericAPIView):
 
   lookup_field='pk'
   serializer_class = AppartementSerializer
+  authentication_classes = [TokenAuthentication]
 
   def get_queryset(self):
     return Appartement.objects.all()
@@ -32,12 +35,17 @@ class AppartementView(mixins.CreateModelMixin,generics.GenericAPIView):
 
 
 class CreateBuyingFormView(mixins.CreateModelMixin,generics.GenericAPIView):
-
+  parser_classes=[FormParser,MultiPartParser]
   lookup_field='pk'
   serializer_class = BuyingFormSerializer
+  authentication_classes = [TokenAuthentication]
 
   def get_queryset(self):
     return BuyingForm.objects.all()
+
+  def perform_create(self,serializer):
+    print(self.request.user)
+    serializer.save(client=self.request.user)
 
   def post(self,request,*args,**kwargs):
     return self.create(request,*args,**kwargs)
@@ -47,7 +55,7 @@ class ListBuyingFormView(mixins.ListModelMixin,generics.GenericAPIView):
 
   queryset = BuyingForm.objects.all()
   serializer_class = BuyingFormSerializer
-
+  authentication_classes = [TokenAuthentication]
   
 
   def get(self,request,*args,**kwargs):
@@ -61,6 +69,7 @@ class DetailBuyingFormView(mixins.RetrieveModelMixin,
 
   Lookup_field='pk'
   serializer_class=BuyingFormSerializer
+  authentication_classes = [TokenAuthentication]
 
 
   def get_queryset(self):
