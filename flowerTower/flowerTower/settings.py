@@ -112,7 +112,7 @@ REST_FRAMEWORK = {
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
-    
+
     "DATE_INPUT_FORMATS": ["%Y-%m-%d"],
 
     'DEFAULT_PERMISSION_CLASSES': [
