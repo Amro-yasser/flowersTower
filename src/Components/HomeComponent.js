@@ -66,7 +66,7 @@ const MyButton = styled(({ color, ...other }) => <Button {...other} />)({
 
 const useStyles = makeStyles((theme) => ({
   root:{
-    marginBottom:'50px'
+    // marginBottom:'50px'
   },
   overlay:{
     background: 'linear-gradient(to right, #207dff 0%, #a16ae8 100%)',
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     color:'#ffffff',
     backgroundColor:'#F6D863',
     width:'120px',
-    boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);',
+    // boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);',
     
   },
   imgInt:{
@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
     width:'400px',
     position:'relative',
     // height:'150px',
-    boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);',
+    // boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);',
 
 
   },
@@ -269,6 +269,7 @@ export default function FormAdding(props){
             <div className={classes.Carousel}>
               <OwlCarousel
                 className="owl-theme"
+                
                 items={1}
                 loop ={false}
                 margin={10}
@@ -300,6 +301,7 @@ export default function FormAdding(props){
             <Typography style={{margin:'10px 0'}} align="left" component="h4"><strong>Intérieur </strong>d'appartements</Typography>
               <OwlCarousel
                   className="owl-theme"
+                  style={{zIndex:'auto'}}
                   items={1}
                   loop ={false}
                   margin={10}
@@ -325,6 +327,7 @@ export default function FormAdding(props){
                   mergeFit={false}
                   dots={false}
                   autoWidth={true}
+                  style={{zIndex:'auto'}}
                  
                     >
                   { pictures2.map((pic)=>(
@@ -407,7 +410,7 @@ export default function FormAdding(props){
             </ListItem>
           </List>
           </Grid>
-          <Grid item xs={12} style={{ height: '100vh', width: '100%' }}>
+          <Grid item xs={12} style={{ height: '50vh', width: '100%' }}>
             
            
           </Grid>
