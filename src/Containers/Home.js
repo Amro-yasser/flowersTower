@@ -17,6 +17,7 @@ import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import HomeComponent from '../Components/HomeComponent'
 import FormAdding from '../Components/FormAdding'
+import LoginSignup from '../Components/LoginSignup'
 import Container from '@material-ui/core/Container';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -29,23 +30,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 
 
-function ElevationScroll(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
 
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
-}
-
-const drawerWidth = 240;
 
 export const useStyles = theme => ({
   root: {
@@ -72,6 +57,8 @@ export const useStyles = theme => ({
 
   content: {
     height: '100vh',
+    pading:'0px',
+    margin:'0px'
   },
   
   fixedHeight: {
@@ -152,7 +139,7 @@ tab:{
   
 
     return (
-      <div className={classes.root}>
+      <div>
       <CssBaseline />
       
       {/* <BottomNavigation
@@ -166,10 +153,11 @@ tab:{
         <BottomNavigationAction className={classes.toolbarIcon} icon={<FontAwesomeIcon icon={faKey} size="2x" />} />
       </BottomNavigation> */}
      
-       <main className={classes.content}>
-          <Container  >
+       <main >
+          <Container disableGutters={true} style={{margin:'0'}}>
             <Switch>
               {/* <Route exact path='/Projects' component={ProjectsSections} />  */}
+              <Route exact path='/ls' component={LoginSignup} /> 
               <Route exact path='/login' component={Login} /> 
               <Route exact path='/home' component={HomeComponent}/>
               <Route exact path='/addForm' component={FormAdding}/>

@@ -12,10 +12,6 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import {baseURL} from '../constants'
-import OwlCarousel from 'react-owl-carousel';
-
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 
 
@@ -63,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FormAdding(props){
   const classes = useStyles();
   const history = useHistory();
+  const [image,setImage] = React.useState(null)
   const [item,setItem]= React.useState(
     {
         fullname:'',
@@ -71,7 +68,6 @@ export default function FormAdding(props){
         adress:'',
         email:'',
         phoneNumber:'',
-        identity:'',
         appartement:'',
         furniture:'',
         description:'',
@@ -84,9 +80,12 @@ export default function FormAdding(props){
   const state = {
     isAuthenticated:localStorage.getItem('token')!== null
   }
+  const fileHandler = (event)=> {
+    setImage(event.target.files[0])
+  }
   const onChange = (e) => {
     const { name , value} = e.target
-    if (value =="Meuble Personnalise"){
+    if (value ==="Meuble Personnalise"){
         setVisible(true)
     }else {
         setVisible(false)
@@ -95,38 +94,32 @@ export default function FormAdding(props){
     console.log(item)
      
   };
-  const handleChange = (event) => {
-      
-      console.log("area")
-  };
 
-  const handleChange2 = (event) => {
-      if (event.target.value =="Meuble Personnalise"){
-          setVisible(true)
-      }else {
-          setVisible(false)
-      }
-    console.log("choice")
-    
-};
 
 const onSubmit = (e) => {
       
     e.preventDefault();
-    const data = item;
+    const data = new FormData();
+    Object.keys(item).forEach(key => {
+    
+        data.append(key,item[key])
+    })
+    data.append('identity',image,image.name)
+    // const data = item;
     const json = JSON.stringify(data);
     // const token = localStorage.getItem('token')
     var config = {
       headers: {
-        // 'Authorization': "Token " + token,
-        'Content-Type': 'application/json'
+        'Authorization': "Token 885c856bc00334367a923b8daf70a805ad9bee40" ,
+        'Content-Type': 'multipart/form-data'
+        // 'Accept': '*/*',
       }
       
     }
     
-    console.log(json)
+    console.log(data)
     if (window.confirm("Are You Sure ?")){
-      axios.post(`${baseURL}/add-form/`,json,config)
+      axios.post(`${baseURL}/add-form/`,data,config)
       .then(res => {          
           history.push("/home")
         
@@ -254,7 +247,7 @@ const onSubmit = (e) => {
                             id="input-file"
                             type="file"
                             name="identity"
-                            onChange={onChange}
+                            onChange={fileHandler}
                             style={{display:'none'}}
                         />
                         <label htmlFor="input-file">

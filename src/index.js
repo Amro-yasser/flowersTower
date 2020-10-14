@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducers/auth';
 import HomeComponent from './Components/HomeComponent'
+import LoginSignup from './Components/LoginSignup'
 import {createStore, compose, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Switch, Route, Redirect ,HashRouter} from 'react-router-dom';
 // import { persistor,store } from './store/storeConfig'
 // import { loadState,saveState} from './localStorage';
-import Login from './Login';
+import Login from './Login'
 
 
 const persistedState = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : [];
@@ -33,7 +33,8 @@ const app= (
       <Switch>
     {/* <PersistGate loading={null} persistor={persistor}> */}
         <App>
-          <Route exact path='/' component={Login}/>
+          <Route exact path='/ls' component={LoginSignup}/>
+          <Route exact path='/login' component={Login}/>
           <Route exact path='/home' component={HomeComponent}/>
         </App>
     {/* </PersistGate> */}

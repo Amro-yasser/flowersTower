@@ -3,7 +3,6 @@ import { makeStyles,withStyles,styled } from '@material-ui/core/styles';
 import {Paper,Button,Container,Grid} from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import GoogleMapReact from 'google-map-react';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -410,13 +409,7 @@ export default function FormAdding(props){
           </Grid>
           <Grid item xs={12} style={{ height: '100vh', width: '100%' }}>
             
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: "AIzaSyA1E1MwIQWZoMT_3B5mRShw-lewu3SsP-8" }}
-              defaultCenter={center}
-              defaultZoom={11}
-              >
-              
-            </GoogleMapReact>
+           
           </Grid>
         </Grid>
 
