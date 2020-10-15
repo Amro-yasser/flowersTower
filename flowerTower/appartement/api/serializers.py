@@ -9,7 +9,7 @@ from appartement.models import *
 
 
 class AccountSerializer(RegisterSerializer):
-    phoneNumber=serializers.IntegerField(required=True)
+    phoneNumber=serializers.IntegerField(required=True,)
 
 
     def validate_phoneNumber(self,phoneNumber):

@@ -36,7 +36,7 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser):
     email       = models.EmailField(verbose_name="email",max_length=60,unique=True)
     username    = models.CharField(max_length=200,unique=True)
-    phoneNumber = models.IntegerField(unique=True,default="0")
+    phoneNumber = models.IntegerField(unique=True,default=0)
     date_joined = models.DateTimeField(verbose_name="date joined",auto_now_add=True)
     last_login  = models.DateTimeField(verbose_name="last login",auto_now_add=True)
     is_active   = models.BooleanField(default=True)
@@ -45,7 +45,7 @@ class Account(AbstractBaseUser):
     is_superuser= models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phoneNumber','username']
+    REQUIRED_FIELDS = ['phoneNumber']
     
     objects = AccountManager()
 
@@ -83,7 +83,7 @@ class BuyingForm(models.Model):
     birthplace  = models.CharField(default='',max_length=255)
     adress      = models.CharField(default='',max_length=255)
     email       = models.EmailField(max_length=60,unique=True)
-    phoneNumber = models.CharField(default='',max_length=20)
+    phoneNumber = models.CharField(default='0',max_length=20)
     identity    = models.ImageField(upload_to='identities',default='')
     appartement = models.ForeignKey(Appartement,on_delete=models.CASCADE)
     furniture   = models.CharField(default='Non Meuble',max_length=50)
