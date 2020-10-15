@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Login from '../Login';
+import Signup from '../Signup';
 import { connect }from 'react-redux';
 import { compose } from 'redux';
 import * as actions from '../store/actions/auth'
@@ -159,6 +160,7 @@ tab:{
               {/* <Route exact path='/Projects' component={ProjectsSections} />  */}
               <Route exact path='/ls' component={LoginSignup} /> 
               <Route exact path='/login' component={Login} /> 
+              <Route exact path='/signup' component={Signup} /> 
               <Route exact path='/home' component={HomeComponent}/>
               <Route exact path='/addForm' component={FormAdding}/>
               

@@ -1,13 +1,15 @@
 import React,{ useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/auth';
-import Avatar from '@material-ui/core/Avatar';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/material.css'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhoneAlt,faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPhoneAlt,faUnlockAlt,faEnvelope,faUserAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import { Grid,GridList } from '@material-ui/core';
@@ -23,6 +25,7 @@ import f from './img/login/f.png'
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {codes} from './codes'
 
 const MyButton = styled(({ color, ...other }) => <Button {...other} />)({
   background: '#F7D039',
@@ -130,24 +133,32 @@ buttons:{
 function Login(props) {
   const classes = useStyles();
   const [data,setData] = useState({})
+  const [currency,setCurrency] = useState('+213')
+
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
+  };
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    const {name,value}= e.target;
+    const data= e.target;
     // console.log(name+" "+value)
     const obj = {
-      "username":e.target.username.value,
-      "password":e.target.password.value
+      "username":data.username.value,
+      "email": data.email.value,
+      "password1": data.password1.value,
+      "password2": data.password2.value,
+      "phoneNumber": data.phoneNumber.value,
     }
     setData(obj)
     console.log(obj)
-    props.onAuth(e.target.username.value,e.target.password.value)
+    props.onAuth(data.username.value,data.email.value,data.password1.value,data.password2.value,data.phoneNumber.value)
     // props.history.push("/home")
     
   }
 
   return (
-    <div style={{flexGrow: 1}}>
+    <div style={{marginBottom:'10vh'}}>
     <Grid container xs={12}  >
         <Grid item xs={12} align='center' className={classes.Header}>
           <div className={classes.container}>
@@ -158,18 +169,55 @@ function Login(props) {
     
         <Grid item xs={12} align="center" className={classes.buttons}>
           <form onSubmit={handleSubmit} noValidate>
-            <FormControl className={classes.margin}>
+          <FormControl className={classes.margin}>
               <CustomTextField
-                id="user"
+                id="name"
                 name="username"
-                label="Phone/Email"
-                placeholder="Connecter avec le numero de telephone"
+                label="Username"
+                placeholder="ex: martin123, george22...."
                 variant="outlined"
                 className={classes.fields}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FontAwesomeIcon icon={faPhoneAlt} size='2x'/>
+                      <FontAwesomeIcon icon={faUser} size='2x'/>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+          <FormControl className={classes.margin}>
+              <CustomTextField
+                id="contact"
+                name="email"
+                label="Email"
+                placeholder="example@gmail.com"
+                variant="outlined"
+                className={classes.fields}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <FontAwesomeIcon icon={faEnvelope} size='2x'/>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+            <FormControl className={classes.margin}>
+            
+              <CustomTextField
+                id="user"
+                name="phoneNumber"
+                label="Numero Telephone"
+                placeholder="+213 77 78 79 800"
+                variant="outlined"
+                className={classes.fields}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      
+                        <FontAwesomeIcon icon={faPhoneAlt} size='2x'/>
+                            
                     </InputAdornment>
                   ),
                 }}
@@ -179,10 +227,29 @@ function Login(props) {
             <FormControl className={classes.margin}>
               <CustomTextField
                 id="user2"
-                name="password"
+                name="password1"
                 type="password"
                 label="Mot de Passe"
                 placeholder="Entrer votre mot de passe"
+                variant="outlined"
+                className={classes.fields}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <FontAwesomeIcon icon={faUnlockAlt} size='2x'/>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+
+            <FormControl className={classes.margin}>
+              <CustomTextField
+                id="user2"
+                name="password2"
+                type="password"
+                label="Confirmer"
+                placeholder="Confirmer votre mot de passe"
                 variant="outlined"
                 className={classes.fields}
                 InputProps={{
@@ -239,7 +306,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProp = (dispatch)=> {
   return {
-    onAuth:(username,password)=> dispatch(actions.authLogin(username,password))
+    onAuth:(username,email,password1,password2,phoneNumber)=> dispatch(actions.authSignup(username,email,password1,password2,phoneNumber))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProp)(Login) 

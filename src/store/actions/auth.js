@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 import * as c from '../../constants';
 import * as actionTypes from './actionTypes';
@@ -59,10 +60,38 @@ export const authLogin = (username,password) => {
         dispatch(auhtSuccess(token));
         dispatch(checkAuthTimeout(3600));
         console.log('Done')
-        
+        const history = useHistory()
 
-          
+          // history.push("/home")
           window.location = "/home"
+      
+        
+    }else if(res.status===400) {
+      alert("Check Your Informations")
+    }else {
+      console.log('Server Fault')
+    }
+      
+    })
+    .catch(err =>{
+      dispatch(auhtFail(err))
+    })
+  }
+}
+export const authSignup = (username,email,password1,password2,phoneNumber) => {
+  return dispatch => {
+    dispatch(authStart());
+    console.log(username)
+    axios.post(c.signupURL,{
+      username: username,
+      email: email,
+      password1: password1,
+      password2: password2,
+      phoneNumber:phoneNumber 
+    })
+    .then(res => {
+      if (res.status ===201){
+          window.location = "/login"
       
         
     }else if(res.status===400) {
