@@ -8,25 +8,11 @@ from allauth.account.utils import setup_user_email
 from appartement.models import *
 
 
-class AccountSerializer(RegisterSerializer):
-    phoneNumber=serializers.IntegerField(required=True,)
+class AccountSerializer(serializers.ModelSerializer):
 
-
-    def validate_phoneNumber(self,phoneNumber):
-        return phoneNumber
-
-    def get_cleaned_data(self):
-        return {
-            'phoneNumber': self.validated_data.get('phoneNumber', ''),
-            'username': self.validated_data.get('username', ''),
-            'password1': self.validated_data.get('password1', ''),
-            'email': self.validated_data.get('email', ''),
-        }
-
-    def custom_signup(self, request, user):
-        user.phoneNumber = self.validated_data.get('phoneNumber', '')
-        user.save(update_fields=['phoneNumber'])
-
+    class Meta:
+        model = Account
+        fields=['username','email','password']
 
 class AppartementSerializer(serializers.ModelSerializer):
 

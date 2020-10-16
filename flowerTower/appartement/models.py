@@ -4,27 +4,23 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from rest_framework.reverse import reverse as api_reverse
 
 class AccountManager(BaseUserManager):
-    def create_user(self,email,username,phoneNumber,password=None):
+    def create_user(self,email,username,password=None):
         if not email:
             raise ValueError("Users Must Have Emails")
-
-        if not phoneNumber:
-            raise ValueError("Users Must Have Phone Number")
 
         if not username:
             raise ValueError("Users Must Have Username")
 
-        user = self.model(email=self.normalize_email(email),username=username,phoneNumber=phoneNumber)
+        user = self.model(email=self.normalize_email(email),username=username)
         user.set_password(password)
         user.save(using=self._db)
         return user 
 
-    def create_superuser(self,email,username,phoneNumber,password):
+    def create_superuser(self,email,username,password):
         user = self.create_user(  
                             email=self.normalize_email(email),
                             password=password, 
                             username=username,
-                            phoneNumber=phoneNumber,
                             )
         user.is_admin=True
         user.is_staff=True 
@@ -36,7 +32,6 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser):
     email       = models.EmailField(verbose_name="email",max_length=60,unique=True)
     username    = models.CharField(max_length=200,unique=True)
-    phoneNumber = models.IntegerField(unique=True,default=0)
     date_joined = models.DateTimeField(verbose_name="date joined",auto_now_add=True)
     last_login  = models.DateTimeField(verbose_name="last login",auto_now_add=True)
     is_active   = models.BooleanField(default=True)
@@ -45,7 +40,7 @@ class Account(AbstractBaseUser):
     is_superuser= models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phoneNumber']
+    REQUIRED_FIELDS = ['username']
     
     objects = AccountManager()
 
