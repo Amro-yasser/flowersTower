@@ -22,6 +22,7 @@ class AppartementSerializer(serializers.ModelSerializer):
         # ['id','area','bathroom','balcony','loggia','init_price','quantity','plan','state']
 
 class BuyingFormSerializer(serializers.ModelSerializer):
+
     bank_receipt = serializers.FileField(allow_empty_file=True,required=False)
     state = serializers.CharField(required=False, allow_blank=True)
     identity= serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)

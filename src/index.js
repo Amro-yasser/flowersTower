@@ -10,6 +10,8 @@ import {createStore, compose, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Switch, Route, Redirect ,HashRouter} from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+
 // import { persistor,store } from './store/storeConfig'
 // import { loadState,saveState} from './localStorage';
 import Login from './Login'
@@ -49,9 +51,13 @@ const app= (
 
 ReactDOM.render(
   <React.StrictMode>
-    
-    {app}
-    
+    <SnackbarProvider anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+    }} 
+    maxSnack={3}>
+      {app} 
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

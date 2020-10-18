@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     #app
     'appartement',
     'corsheaders',
+    'channels',
+    
     
 ]
 
@@ -124,7 +126,9 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL='appartement.Account'
+
 WSGI_APPLICATION = 'flowerTower.wsgi.application'
+ASGI_APPLICATION = "flowerTower.routing.application"
 
 
 # Database
@@ -198,3 +202,14 @@ EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+
+#channels config 
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
